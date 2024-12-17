@@ -13,32 +13,23 @@ async function digitarComAtraso(campo, texto, atraso) {
 
 describe('Cadastrando usuario', () => {
     it('Cadastrando usuario caminho feliz', async () => {
-        await browser.url(`https://front.serverest.dev/login`)
+        await browser.url('https://front.serverest.dev/login')
 
         await pause(3000);
 
-        const botao = await $(`[data-testid='cadastrar']`);
-        await botao.click();
-
-        await pause(3000);
-
-        const campoNome = await $(`[data-testid='nome']`);
-        await digitarComAtraso(campoNome, 'Nome Teste da Silva', 100);
-  
         const campoEmail = await $('[name="email"]');
         await digitarComAtraso(campoEmail, 'testedasilv@gmail.com', 100);
         
         const campoSenha = await $('#password');
         await digitarComAtraso(campoSenha, 'dasilvasenha123', 100);
         
-        const cadastroAdm = await $(`[data-testid='checkbox']`);
+        const cadastroAdm = await $("[data-testid='entrar']");
         await cadastroAdm.click();
 
         await pause(3000);
 
-        const finaliCadastro = await $(`[data-testid='cadastrar']`);
-        await finaliCadastro.click();
-
+        const urlAtual = 'https://front.serverest.dev/admin/home'
+        expect(urlAtual).toBe('https://front.serverest.dev/admin/home');
     })
 })
 
