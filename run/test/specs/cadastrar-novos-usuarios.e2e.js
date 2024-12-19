@@ -18,7 +18,7 @@ describe('Logando usuario', () => {
         await pause(3000);
 
         const campoEmail = await $('[name="email"]');
-        await digitarComAtraso(campoEmail, 'testedasilv2@gmail.com', 100);
+        await digitarComAtraso(campoEmail, 'testedasilv@gmail.com', 100);
         
         const campoSenha = await $('#password');
         await digitarComAtraso(campoSenha, 'dasilvasenha123', 100);
