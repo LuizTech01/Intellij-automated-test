@@ -12,7 +12,7 @@ async function digitarComAtraso(campo, texto, atraso) {
 }
 
 describe('Listar e excluir usuarios', () => {
-    it('Acessar lista de usuarios ', async () => {
+    it('Acessar lista de usuarios e excluir um', async () => {
         await browser.url('https://front.serverest.dev/login');
 
         await pause(3000);

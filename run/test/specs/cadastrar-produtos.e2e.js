@@ -12,8 +12,8 @@ async function digitarComAtraso(campo, texto, atraso) {
     }
 }
 
-describe('Cadastrando Produto', () => {
-    it('Cadastrando produto caminho feliz', async () => {
+describe('Cadastrando Produto e validando', () => {
+    it('Cadastrando produto caminho feliz e validando se ele foi adicionado', async () => {
         await browser.url('https://front.serverest.dev/login')
 
         await pause(3000);
@@ -24,7 +24,7 @@ describe('Cadastrando Produto', () => {
         const campoSenha = await $('#password');
         await digitarComAtraso(campoSenha, 'dasilvasenha123', 100);
         
-        const cadastroAdm = await $("[data-testid='entrar']");
+        const cadastroAdm = await $("[data-testid='entrar']"); 
         await cadastroAdm.click();
 
         await pause(3000);
@@ -44,10 +44,10 @@ describe('Cadastrando Produto', () => {
         await digitarComAtraso(campoPrecoProduto, '1', 100);
 
         const campoDescricaoProduto = await $('#description');
-        await digitarComAtraso(campoDescricaoProduto, 'Uma caneta azul comum', 100)
+        await digitarComAtraso(campoDescricaoProduto, 'Uma caneta azul comum', 100);
         
         const campoQuantidadeProduto = await $('#quantity');
-        await digitarComAtraso(campoQuantidadeProduto, '5', 100)
+        await digitarComAtraso(campoQuantidadeProduto, '5', 100);
         
         const campoImagemProduto = await $('#imagem');
         const caminhoImagem = 'C:/Users/luizf/OneDrive/Documents/Intellij-automated-test/run/test/images/caneta.jpg';
@@ -66,12 +66,18 @@ describe('Cadastrando Produto', () => {
         const botaoListarProdutos = await $("[data-testid='listarProdutos']");
         await botaoListarProdutos.click();
         
+        await pause(3000);
 
-        const listaProdutos = await $$('[data-testid="produto-item"]');
+        const tbodyProdutos = await $('tbody');
+        await tbodyProdutos.waitForExist({ timeout: 5000 });
+
+        const linhasTabela = await $$('tbody tr');
+        
         let produtoEncontrado = false;
 
-        for (let i = 0; i < listaProdutos.length; i++) {
-            const nomeProduto = await listaProdutos[i].$('[data-testid="nome-produto"]').getText();
+        for (let i = 0; i < linhasTabela.length; i++) {
+            const nomeProduto = await linhasTabela[i].$$('td')[0].getText();
+            console.log(`Linha ${i}: ${nomeProduto}`);
 
             if (nomeProduto === 'Caneta') {
                 produtoEncontrado = true;
@@ -79,7 +85,6 @@ describe('Cadastrando Produto', () => {
             }
         }
 
-        expect(produtoEncontrado).toBe(true, 'Produto não encontrado na lista');
+        expect(produtoEncontrado).toBe(true, 'Produto "Caneta" não encontrado na tabela');
     })
 })
-

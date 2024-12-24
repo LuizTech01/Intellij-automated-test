@@ -11,8 +11,8 @@ async function digitarComAtraso(campo, texto, atraso) {
     }
 }
 
-describe('Logando usuario', () => {
-    it('Logando usuario caminho feliz', async () => {
+describe('Cadastro de novo usuario', () => {
+    it('Cadastrando novo usuario', async () => {
         await browser.url('https://front.serverest.dev/login')
 
         await pause(3000);
