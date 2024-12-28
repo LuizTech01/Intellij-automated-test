@@ -36,7 +36,7 @@ describe('Cenarios de Login', () => {
 
         await pause(3000);
 
-        /* Criar bug pois a mensagem de erro nao esta de acordo com o cenario*/
+        /* Criar uma task de melhoria pois a mensagem de erro nao esta de acordo com o cenario*/
     })
 
     it('Logar com um email ou senha invalido, deve da erro', async () => {
@@ -55,5 +55,21 @@ describe('Cenarios de Login', () => {
         assert.strictEqual(mensagemErro, 'Email e/ou senha inválidos');
 
         await pause(3000);
+    })
+
+    it('Logar sem informar dados', async () => {
+        
+        const cadastroAdm = await $("[data-testid='entrar']");
+        await cadastroAdm.click();
+
+        await pause(3000);
+
+        const mensagemEmailAusente = await browser.$(`//*[@id="root"]/div/div/form/div[1]/span`).getText();
+        assert.strictEqual(mensagemEmailAusente, 'Email é obrigatório');
+
+        await pause(3000);
+
+        const mensagemSenhaAusente = await browser.$(`//*[@id="root"]/div/div/form/div[2]/span`).getText();
+        assert.strictEqual(mensagemSenhaAusente, 'Password é obrigatório');
     })
 })
